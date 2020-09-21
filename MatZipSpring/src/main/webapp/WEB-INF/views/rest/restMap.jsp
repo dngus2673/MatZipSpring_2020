@@ -8,7 +8,7 @@
 .label .right { background: url("https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png") -1px 0  no-repeat;display: inline-block;height: 24px;overflow: hidden;width: 6px;}
 </style>
 <div id="sectionContainerCenter">
-	<div id="mapContainer" style="width: 1000vw;height: 80vw;"></div>
+	<div id="mapContainer" style="width: 90vw;height: 50vw;"></div>
 	
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1965125d8bfdc12035fae1f11ca346bd"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -21,10 +21,27 @@
 		};
 		
 
-		var map = new kakao.maps.Map(mapContainer, options);
+		const map = new kakao.maps.Map(mapContainer, options);
+		
 		
 		function getRestaurantList() {
-			axios.get('/restaurant/ajaxGetList').then(function(res) {
+			const bounds = map.getBounds();
+			const southWest = bounds.getSouthWest()
+			const northEast = bounds.getNorthEast()
+			
+			console.log('southWest : ' + southWest)
+			console.log('northEast : ' + northEast)
+			
+			const sw_lat = southWest.getLat()
+			const sw_lng = southWest.getLng()
+			const ne_lat = northEast.getLat()
+			const ne_lng = northEast.getLng()
+			
+			axios.get('/rest/ajaxGetList', {
+				params: { 
+					sw_lat, sw_lng, ne_lat, ne_lng 
+					}
+			}).then(function(res) {
 					console.log(res.data)
 					
 					res.data.forEach(function(item) {
@@ -33,7 +50,8 @@
 				})
 			}
 		
-		getRestaurantList()
+		kakao.maps.event.addListener(map, 'dragend', getRestaurantList)
+		
 		
 		function createMarker(item) {
 			var content = document.createElement('div')

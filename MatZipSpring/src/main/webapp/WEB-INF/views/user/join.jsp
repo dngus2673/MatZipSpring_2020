@@ -3,7 +3,7 @@
 <div id="sectionContainerCenter">
 	<div>
 		<form id="frm" class="frm" action="/user/join" method="post">
-			<div id="idChkResult" class="msg">${msg }</div>
+			<div id="idChkResult" class="msg">${data.msg}</div>
 			<div><input type="text" name="user_id" placeholder="아이디">
 				<button type="button" onclick="chkId()">아이디 중복체크</button>
 			</div>
@@ -21,14 +21,13 @@
 	*/
 		function chkId() {
 			const user_id = frm.user_id.value
-			axios.get('/user/ajaxIdChk', {
-				params: { 
-					'user_id': user_id }
+			axios.post('/user/ajaxIdChk', {
+					'user_id': user_id 
 			}).then(function(res) {
 				console.log(res)
-				if(res.data.result == 2){ // 아이디 없음
+				if(res.data == '2'){ // 아이디 없음
 					idChkResult.innerText = '사용할 수 있는 아이디 입니다.' 
-				}else if(res.data.result == 3){ // 아이디 중복됨
+				}else if(res.data == '3'){ // 아이디 중복됨
 					idChkResult.innerText = '이미 사용중인 아이디 입니다.'
 				}
 			})
