@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.matzip.Const;
@@ -24,6 +25,12 @@ public class UserController {
 	@Autowired
 	private UserService service;
 	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession hs) {
+		hs.invalidate();
+		return "redirect:/";
+	}
+	
 	//model은 request의  setAttribute				// get, put, delete, post CRUD와 같은 역할 
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(Model model) {
@@ -32,6 +39,16 @@ public class UserController {
 		model.addAttribute(Const.VIEW, "user/login");
 		return ViewRef.TEMP_DEFAULT;
 	}
+	
+//	@RequestMapping(value="/login", method = RequestMethod.GET)
+//	public ModelAndView login(ModelAndView model) {
+//		System.out.println("Controller - login");
+//		model.addAttribute(Const.TITLE, "LOGIN");
+//		model.addAttribute(Const.VIEW, "user/login");
+//		model.setViewName(ViewRef.TEMP_DEFAULT);
+//		return model;
+//	}
+	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(UserPARAM param, HttpSession hs, RedirectAttributes ra) {

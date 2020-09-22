@@ -32,10 +32,12 @@ public class UserService {
 		if(!cryptPw.equals(dbUser.getUser_pw())) {
 				return Const.NO_PW;
 			}
-			param.setUser_pw(null);
-			param.setNm(dbUser.getNm());
-			param.setProfile_img(param.getProfile_img());
-			return Const.SUCCESS;
+			
+		param.setI_user(dbUser.getI_user());
+		param.setUser_pw(null);
+		param.setNm(dbUser.getNm());
+		param.setProfile_img(param.getProfile_img());
+		return Const.SUCCESS;
 	}
 	
 	public int join(UserVO param) {

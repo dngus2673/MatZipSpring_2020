@@ -10,7 +10,7 @@
 			<div class="recMenuItem" id="recMenuItem_${item.seq}">
 				<div class="pic">
 					<c:if test="${item.menu_pic != null and item.menu_pic != ''}">
-						<img src="/res/img/restaurant/${data.i_rest}/${item.menu_pic}">
+						<img src="/res/img/rest/${data.i_rest}/${item.menu_pic}">
 					</c:if>
 				</div>
 				<div class="info">
@@ -36,7 +36,7 @@
 					<h2> -- 추천 메뉴 -- </h2>
 					<div>
 						<div><button type="button" onclick="addRecMenu()">추천 메뉴 추가</button></div>
-						<form id="recMenu"action="/restaurant/addRecMenusProc" enctype="multipart/form-data" method="post">
+						<form id="recMenu"action="/rest/addRecMenus" enctype="multipart/form-data" method="post">
 							<input type="hidden" name="i_rest" value="${data.i_rest}"><br>
 							<div id="recItem"></div>
 							<div><input type="submit" value="등록"></div>
@@ -44,7 +44,7 @@
 					</div>
 					<h2> -- 메뉴 -- </h2>
 					<div>
-						<form id="menuFrm" action="/restaurant/addMenusProc" enctype="multipart/form-data" method="post">
+						<form id="menuFrm" action="/rest/addMenus" enctype="multipart/form-data" method="post">
 							<input type="hidden" name="i_rest" value="${data.i_rest}">
 							<input type="file" name="menu_pic" multiple>
 							<div><input type="submit" value="등록"></div>
@@ -60,8 +60,8 @@
 						</span>
 					</div>
 					<div class="status branch_none">
-						<span class="cnt hit">조회수 : ${data.cntHits} </span>
-						<span class="cnt favorite">찜 : ${data.cntFavorite} </span>
+						<span class="cnt hit">조회수 : ${data.hits} </span>
+						<span class="cnt favorite">찜 : ${data.cnt_favorite} </span>
 					</div>
 				</div>
 				<div>
@@ -77,13 +77,17 @@
 								<td> ${data.cd_category_nm} </td>
 							</tr>
 							<tr>
+								<th>작성자 : </th>
+								<td>${data.user_nm}</td>
+							</tr>
+							<tr>
 								<th> 메뉴 : </th>
 								<td>
 									<div class="menuList">
 									<c:if test="${fn:length(menuList) > 0}">
 										<c:forEach var="i" begin="0" end="${fn:length(menuList) > 3 ? 2 : fn:length(menuList) - 1}">
 											<div class="menuItem">
-												<img src="/res/img/restaurant/${data.i_rest}/menu/${menuList[i].menu_pic}">
+												<img src="/res/img/rest/${data.i_rest}/menu/${menuList[i].menu_pic}">
 											</div>
 										</c:forEach>
 									</c:if> 

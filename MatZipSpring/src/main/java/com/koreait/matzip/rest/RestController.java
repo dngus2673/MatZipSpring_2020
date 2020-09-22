@@ -1,5 +1,9 @@
 package com.koreait.matzip.rest;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.koreait.matzip.Const;
+import com.koreait.matzip.SecurityUtils;
 import com.koreait.matzip.ViewRef;
+import com.koreait.matzip.model.CommonMapper;
+import com.koreait.matzip.rest.model.RestDMI;
 import com.koreait.matzip.rest.model.RestPARAM;
 import com.koreait.matzip.rest.model.RestVO;
 
@@ -19,7 +26,6 @@ public class RestController {
 	@Autowired
 	private RestService service;
 	
-	
 	@RequestMapping("/map")
 	public String restMap(Model model) {
 		
@@ -28,8 +34,9 @@ public class RestController {
 		
 		return ViewRef.TEMP_MENU_TEMP;
 	}
-	@RequestMapping("/ajaxGetList")
-	@ResponseBody public String ajaxGetList(RestPARAM param) {
+	@RequestMapping(value = "/ajaxGetList", produces={"application/json; charset=UTF-8"})
+	@ResponseBody 
+	public List<RestDMI> ajaxGetList(RestPARAM param) {
 		System.out.println("sw_lat : " + param.getSw_lat());
 		System.out.println("sw_lng : " + param.getSw_lng());
 		System.out.println("ne_lat : " + param.getNe_lat());
@@ -38,19 +45,37 @@ public class RestController {
 		return service.selRestList(param);
 	}
 	
-	@RequestMapping(value = "/reg", method = RequestMethod.GET)
+	@RequestMapping("/restReg")
 	public String restReg(Model model) {
-		final int I_M = 1;
+		
+		model.addAttribute("categoryList", service.selCategoryList());
 		
 		model.addAttribute(Const.TITLE, "RegPage");
 		model.addAttribute(Const.VIEW, "rest/restReg");
 		return ViewRef.TEMP_MENU_TEMP;
 	}
 	
-	@RequestMapping(value = "/reg", method = RequestMethod.POST)
-	public String restReg(RestVO param) {
-		return "";
+	@RequestMapping(value = "/restReg", method = RequestMethod.POST)
+	public String restReg(RestPARAM param, HttpSession hs) {
+		
+		param.setI_user(SecurityUtils.getLoginUserPk(hs));
+		
+		int result = service.restReg(param);
+		
+		if(result == 1) {
+			return "redirect:/rest/map";			
+		}
+		return "redirect:/rest/restReg";
+		
+	}
+	@RequestMapping("/detail")
+	public String detail(Model model, RestPARAM param) {
+		RestDMI data = service.selRest(param);
+		model.addAttribute("data", data);
+		model.addAttribute(Const.TITLE, data.getNm()); // 가게명
+		model.addAttribute(Const.VIEW, "rest/restDetail");
+		return ViewRef.TEMP_MENU_TEMP;
+		
 	}
 	
-
 }
