@@ -5,7 +5,7 @@
       rel="stylesheet">
 <div id="sectionContainerCenter">
 	<div>
-		<form id="frm" action="/rest/restReg" method="post" onsubmit="return chkFrm()">
+		<form id="frm" action="/rest/reg" method="post" onsubmit="return chkFrm()">
 			<div><input type="text" name="nm" placeholder="가게명"></div>
 			<div>
 				<input type="text" name="addr" placeholder="주소" onkeyup="changeAddr()" style="width: 250px;">
