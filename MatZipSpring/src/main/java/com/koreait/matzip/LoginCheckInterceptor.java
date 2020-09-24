@@ -20,11 +20,15 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 		
 		System.out.println("uriArr : " + uriArr.length);
 		
-		if(uriArr[1].equals("res")) { //리소스 (js, css, img)
+		if(uri.equals("/")) {
 			return true;
-		}else if(uriArr.length < 3) { //주소가 이상한 경우
-			return false;
+		} else if(uriArr[1].equals("res")) { //리소스 (js, css, img)
+			return true;
 		}
+		
+//		else if(uriArr.length < 3) { //주소가 이상한 경우
+//			return false;
+//		}
 
 		System.out.println("Interceptor!!");
 

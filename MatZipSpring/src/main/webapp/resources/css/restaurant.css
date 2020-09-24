@@ -13,6 +13,7 @@
 }
 
 .menuList .menuItem {
+	position: relative;
 	display: inline-block;
 	width: 70px;
 	height: 70px;
@@ -54,12 +55,16 @@
 	width: 100%;
 	height: 30px;
 }
-.recMenuContainer > .recMenuItem > .delIconContainer {
+.delIconContainer {
 	cursor: pointer;
 	position: absolute;
 	top: 5px;
 	right: 5px;
 }
-.recMenuContainer > .recMenuItem > .delIconContainer:hover {
-	border: 1px solid black;
+.delContainer {
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 5px;
 }
+
