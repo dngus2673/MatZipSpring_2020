@@ -66,9 +66,6 @@ public class RestService {
 		return mapper.delRestRecMenu(param);
 	}
 	
-	public int delRestMenu(RestPARAM param) {
-		return mapper.delRestMenu(param);
-	}
 	
 	public int insRecMenus(MultipartHttpServletRequest mReq) {
 
@@ -109,13 +106,13 @@ public class RestService {
 		return i_rest;
 	}
 	
-	public int delRecMenu(RestPARAM param, String realPath) {
+	public int delRestRecMenu(RestPARAM param, String realPath) {
 		//파일 삭제
 		List<RestRecMenuVO> list = mapper.selRestRecMenus(param);
 		if(list.size() == 1) {
 			RestRecMenuVO item = list.get(0);
-			
-			if(item.getMenu_pic() != null && !item.getMenu_pic().equals("")) { // 이미지 있음 > 삭제!
+				//item.getMenu_pic() != null && !item.getMenu_pic().equals("")
+			if(item.getMenu_pic() != null && !"".equals(item.getMenu_pic())) { // 이미지 있음 > 삭제!
 				File file = new File(realPath + item.getMenu_pic());
 				if(file.exists()) {
 					if(file.delete()) {
@@ -128,6 +125,20 @@ public class RestService {
 		}
 		return mapper.delRestRecMenu(param);
 	}
+	
+	public int delRestMenu(RestPARAM param) {
+		if(param.getMenu_pic() != null && "".equals(param.getMenu_pic())) {
+			String path = Const.realPath + "/resources/img/rest/" + param.getI_rest() + "/menu/";
+			
+			if(FileUtils.delFile(path + param.getMenu_pic())) {
+				return mapper.delRestMenu(param);
+			}else {
+				return Const.FAIL;
+			}
+		}
+		return mapper.delRestMenu(param);
+	}
+	
 	
 	public int insRestMenu(RestFile param, int i_user) {
 			
@@ -156,11 +167,14 @@ public class RestService {
 	private boolean _authFail(int i_rest, int i_user) {
 		RestPARAM param = new RestPARAM();
 		param.setI_rest(i_rest);
-		
-		RestDMI dbResult = mapper.selRest(param);
-		if(dbResult == null || dbResult.getI_user() != i_user) {
+		int dbI_user = mapper.selRestChkUser(i_rest);
+		if(i_user != dbI_user) {
 			return true;
 		}
 		return false;
+//		RestDMI dbResult = mapper.selRest(param);
+//		if(dbResult == null || dbResult.getI_user() != i_user) {
+//			return true;
+//		}
 	}
 } 

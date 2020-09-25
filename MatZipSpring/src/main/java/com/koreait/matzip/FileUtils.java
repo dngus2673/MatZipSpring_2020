@@ -36,6 +36,14 @@ public class FileUtils {
 		
 		return saveFileNm;
 	}
+	
+	public static boolean delFile(String path) {
+		File file = new File(path);
+		if(file.exists()) {
+			return file.delete();
+		}
+		return false;
+	}
 	/*public static String getFileName(Part part) {
 		for(String content : part.getHeader("content-disposition").split(";")) {
 			if(content.trim().startsWith("filename")) {
