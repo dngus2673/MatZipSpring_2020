@@ -4,7 +4,7 @@
 .label { margin-bottom: 96px; cursor: pointer; }
 .label * { display: inline-block;vertical-align: top; }
 .label .left { background: url("https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png") no-repeat;display: inline-block;height: 24px;overflow: hidden;vertical-align: top;width: 7px;}
-.label .center { background: url(https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png) repeat-x;display: inline-block;height: 24px;font-size: 12px;line-height: 24px;}
+.label .center { background: url(https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png) repeat-x;display: inline-block;height: 24px;font-size: 20px;line-height: 24px;}
 .label .right { background: url("https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png") -1px 0  no-repeat;display: inline-block;height: 24px;overflow: hidden;width: 6px;}
 </style>
 <div id="sectionContainerCenter">
@@ -56,7 +56,7 @@
 		
 		kakao.maps.event.addListener(map, 'tilesloaded', getRestaurantList)
 		
-		
+		// 마커 생성
 		function createMarker(item) {
 			
 			var content = document.createElement('div')
@@ -70,7 +70,13 @@
 			
 			var centerSpan = document.createElement('span')
 			centerSpan.className = 'center'
-			centerSpan.innerText = item.nm
+			
+			var restNm = item.nm
+			if(item.is_favorite == 1){
+				restNm += ' ♥'
+			}
+
+			centerSpan.innerText = restNm
 			
 			content.appendChild(leftSpan)
 			content.appendChild(centerSpan)

@@ -67,12 +67,13 @@
 	position: absolute;
 	top: 0;
 	right: 5px;
+
 }
 #carouselContainer {
 	transition: 1s;
 	opacity: 0;
 	z-index: -10;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -88,14 +89,16 @@
 	background-color: #fff;
 	position: relative;
 }
-#carouselContainer .material-icons {
+.material-icons { cursor: pointer; }
+#carouselContainer > .material-icons {
 	display: inline-block;
 	position: absolute;
-	top: 40px;
-	right: 40px;
-	color: #fff;
-	font-size: 3rem;
+	color: #95a5a6;
 	cursor: pointer;
+	font-size: 2rem;
+	background-color: black;
+	top: 20px;
+	right: 20px;
 }
 .swiper-container {
 	width: 100%;
@@ -106,6 +109,25 @@
 	z-index: 20;
 	overflow: auto;	
 }
+.swiper-slide .delContainer {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+.material-icons { cursor: pointer; }
+
+.swiper-container .imgDel {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	z-index: 100;
+	background-color: white;
+}
+.swiper-container .imgDel .material-icons {
+	font-size: 3rem;
+	color: black;
+}
+
 .swiper-container .swiper-wrapper .swiper-slide {
 	display: flex;
     justify-content: center;
@@ -114,5 +136,18 @@
 
 .swiper-container .swiper-wrapper .swiper-slide img {
 	width: 100%;
+	height: auto;
 	overflow: hidden;
 }
+.restaurant-detail {
+	padding: 5px 0 10px 0;
+}
+.restaurant-detail .restaurant_title_wrap {
+	display: flex;
+	align-items: center;
+}
+.restaurant-detail #favorite {
+	color: #e84393;
+	margin-left: 20px;
+}
+.restaurant_title_wrap { margin: 0; padding: 0; }
