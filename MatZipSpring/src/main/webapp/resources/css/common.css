@@ -32,7 +32,10 @@ html, body {
 .bg_black {
 	background-color: #000;
 }
-
+.gugi {
+	font-family: 'Gugi';
+	font-weight: 500;
+}
 a { 
 	text-decoration: none; color: black; 
 	font-family: 'GmarketSansBold'; font-size: 1.3em; }
