@@ -17,26 +17,22 @@
 }
 .f-item .img {
 	width: 300px;
-	background-color: skyblue;
 }
 .f-item .img img {
-	width: 100%;
+	width: 80%;
 	overflow: hidden;
 }
 .f-item .ctnt {
 	display: flex;
 	flex-grow: 1;
 	flex-direction:column;
-	background-color: pink;
 }
 .f-item .ctnt .top {
 	height: 100px;
 	display: flex;
-	border: 1px solid black;
 	padding: 5px 5px 5px 30px;
 }
 .f-item .ctnt .bottom {
-	border: 1px solid navy;
 	flex-grow: 1;
 }
 .f-item .ctnt .f-title {
@@ -48,3 +44,42 @@
 .f-item .ctnt .f-favo {
 	width: 100px;
 }
+.f-item .ctnt .top .f-fav .material-icons {
+	font-size: 2rem;
+	color: red;
+}
+.f-item .ctnt .bottom {
+	overflow-x: hidden;
+	display: flex;
+	margin-left: 30px;
+}
+.f-item .ctnt .bottom .recMenuItem {
+	width: 110px;
+}
+
+.f-item .ctnt .bottom .recMenuItem:not(:first-child) {
+	margin-left: 3px;
+}
+
+.f-item .ctnt .bottom .recMenuItem .pic {
+	width: 100%;
+}
+
+.f-item .ctnt .bottom .recMenuItem img {
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
